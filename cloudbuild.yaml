@@ -1,4 +1,5 @@
 steps:
+# Build
 - name: 'gcr.io/cloud-builders/docker'
   args:
   - 'build'
@@ -6,10 +7,26 @@ steps:
   - 'us-central1-docker.pkg.dev/project-a6517156-5d0f-4642-954/my-repo/app:latest'
   - '.'
 
+# Push
 - name: 'gcr.io/cloud-builders/docker'
   args:
   - 'push'
   - 'us-central1-docker.pkg.dev/project-a6517156-5d0f-4642-954/my-repo/app:latest'
+
+# Deploy to VM
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+  - compute
+  - ssh
+  - my-vm
+  - --zone=us-central1-a
+  - --command
+  - |
+      docker pull us-central1-docker.pkg.dev/project-a6517156-5d0f-4642-954/my-repo/app:latest &&
+      docker stop $(docker ps -q) || true &&
+      docker rm $(docker ps -aq) || true &&
+      docker run -d -p 80:80 us-central1-docker.pkg.dev/project-a6517156-5d0f-4642-954/my-repo/app:latest
 
 images:
 - 'us-central1-docker.pkg.dev/project-a6517156-5d0f-4642-954/my-repo/app:latest'
