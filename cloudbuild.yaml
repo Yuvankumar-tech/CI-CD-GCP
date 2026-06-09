@@ -13,3 +13,6 @@ steps:
 
 images:
 - 'us-central1-docker.pkg.dev/project-a6517156-5d0f-4642-954/my-repo/app:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
