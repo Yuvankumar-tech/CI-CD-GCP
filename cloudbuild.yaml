@@ -1,18 +1,15 @@
 steps:
-# Build image
-- name: gcr.io/cloud-builders/docker
+- name: 'gcr.io/cloud-builders/docker'
   args:
-    - build
-    - -t
-    - us-central1-docker.pkg.dev/project-a6517156-5d0f-4642-954/my-repo/app:latest
-    - .
+  - 'build'
+  - '-t'
+  - 'us-central1-docker.pkg.dev/project-a6517156-5d0f-4642-954/my-repo/app:latest'
+  - '.'
 
-# Push image
-- name: gcr.io/cloud-builders/docker
+- name: 'gcr.io/cloud-builders/docker'
   args:
-    - push
-    - us-central1-docker.pkg.dev/project-a6517156-5d0f-4642-954/my-repo/app:latest
+  - 'push'
+  - 'us-central1-docker.pkg.dev/project-a6517156-5d0f-4642-954/my-repo/app:latest'
 
 images:
-- us-central1-docker.pkg.dev/project-a6517156-5d0f-4642-954/my-repo/app:latest
-``
+- 'us-central1-docker.pkg.dev/project-a6517156-5d0f-4642-954/my-repo/app:latest'
